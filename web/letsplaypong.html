@@ -6,13 +6,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>LetsPlayPong</title>
     
+   
     <script async type="application/dart" src="letsplaypong.dart"></script>
     <script async src="packages/browser/dart.js"></script>
     
+     <script type="text/javascript" src="helloworld.js"></script>
+    
     <link rel="stylesheet" href="letsplaypong.css">
     
-    <script src="raphael.js"></script>
-    <script src="playingWithRaphael.js"></script>
+    <!--<script src="raphael.js"></script>
+    <script src="playingWithRaphael.js"></script>-->
   </head>
   <body>
     <h1>LetsPlayPong</h1>
@@ -22,11 +25,14 @@
     <a href="http://code.tutsplus.com/tutorials/an-introduction-to-the-raphael-js-library--net-7186">RaffaelTutorial</a>
     <a href="https://www.dartlang.org/articles/js-dart-interop/">dart to js</a>
 
-    <div id="pongCourt">   
-      <p id="sample_text_id">Click me!</p>
-      <!--<img id="playerA" src="bar.svg"/>
+    <p id="sample_text_id">Click me!</p>
+    <!--<div id="pongCourt">   
+      
+    </div>-->
+          <!--<img id="playerA" src="bar.svg"/>
       <img id="ball" src="ball.svg"/>
       <img id="playerB" src="bar.svg"/>-->  
-    </div>
+    
+    <div class="svg-canvas"></div>
   </body>
 </html>

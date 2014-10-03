@@ -20,6 +20,18 @@ h1, p {
   position: relativ;
 }
 
+
+.svg-canvas {
+  margin: 0;
+  margin-left: 20px;
+  padding: 0;
+  width: 500px;
+  height: 500px;
+  border: 1px solid black;
+  float: left;
+}
+
+
 #playerA, #playerB, #ball {
   position: absolute;
 }

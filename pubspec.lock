@@ -5,3 +5,11 @@ packages:
     description: browser
     source: hosted
     version: "0.10.0+2"
+  dart_ext:
+    description: dart_ext
+    source: hosted
+    version: "0.0.7"
+  smartcanvas:
+    description: smartcanvas
+    source: hosted
+    version: "0.1.5"
