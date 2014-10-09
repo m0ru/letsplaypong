@@ -9,85 +9,97 @@ void main() {
   
   // INIT
   
-  dom.document.querySelector("#sample_text_id")
-        ..text = "Click me!"
-        ..onClick.listen(reverseText);
-  
   //dom.Element pongCourt = dom.document.querySelector("#pongCourt");
   
   dom.Element pongCourtE = dom.document.querySelector('.svg-canvas');
   ds.SvgSvgElement pongCourt = (pongCourtE as ds.SvgSvgElement);
   
-  
-  ds.RectElement leftPlayer = createPlayer(0, 119, 115); //w == 119, s == 115
-  
-  int rightX = pongCourt.clientWidth - 20; //TODO hacky hardcoding
-  ds.RectElement rightPlayer = createPlayer(rightX, 119, 115); //w == 119, s == 115
+  PongCourt court = new PongCourt(pongCourt, 
+      new Player(119,115), new Player(119,115)); //w == 119, s == 115
   
   ds.CircleElement ball = new ds.CircleElement()
     ..attributes['r'] = '24'
     ..attributes['cx'] = '100'
     ..attributes['cy'] = '100';
   
-  pongCourt.children
+  /*pongCourt.children
     ..add(leftPlayer)
     ..add(rightPlayer)
-    ..add(ball);
+    ..add(ball);*/
   
   // INIT END
   
   
   // MAIN LOOP
+
+  //dom.window.animationFrame
+  //dom.window.animationFrame.then
   
-  while(true) {
+  
+}
+
+class PongCourt {
+  Player leftPlayer;
+  Player rightPlayer;
+  //Ball ball;
+  ds.SvgSvgElement svgRoot;
+  
+  PongCourt(ds.SvgSvgElement svgRoot, Player leftPlayer, Player rightPlayer) {
+    this.svgRoot = svgRoot;
+    this.leftPlayer = leftPlayer;
+    this.rightPlayer = rightPlayer;
+    this.rightPlayer.x = this.svgRoot.clientWidth - this.rightPlayer.width; //TODO hardcode
+    svgRoot.children
+       ..add(this.leftPlayer.rect)
+       ..add(this.rightPlayer.rect);
+  }
+}
+
+class Player {
+  ds.RectElement rect;
+  
+  void set x(int x) {
+    rect.attributes['x'] = '$x';
+  }
+  
+  int get x {
+    return int.parse(rect.attributes['x']);
+  }
+  
+  int get width {
+    return int.parse(rect.attributes['width']);
+  }
+  
+  Player(int upKey, int downKey) {
+    this.rect = new ds.RectElement()
+        ..attributes['width'] = '20'
+        ..attributes['height'] = '110'
+        ..attributes['y'] = '10'
+        ..attributes['x'] = '0';
     
+    dom.window.onKeyPress.listen((dom.KeyboardEvent e) {
+        int yMove = 0;
+        if(e.keyCode == upKey) {
+          yMove = -10;
+        //} else if (e.keyCode == dom.KeyCode.S) {
+        } else if (e.keyCode == downKey) {
+          yMove = 10;
+        }
+        int y = int.parse(rect.attributes['y']) + yMove;
+        rect.attributes['y'] = '$y';
+      });
   }
   
-  
-}
-
-
-
-ds.RectElement createPlayer(int x, int upKey, int downKey) {
-  for (String side in ['left', 'right']) {
-    print(side);
+  void moveUp() {
+    move(-10);
   }
-  ds.RectElement player = new ds.RectElement()
-    ..attributes['width'] = '20'
-    ..attributes['height'] = '110'
-    ..attributes['y'] = '10'
-    ..attributes['x'] = '$x';
   
-  dom.window.onKeyPress.listen((dom.KeyboardEvent e) {
-    int yMove = 0;
-    if(e.keyCode == upKey) {
-      yMove = -10;
-    //} else if (e.keyCode == dom.KeyCode.S) {
-    } else if (e.keyCode == downKey) {
-      yMove = 10;
-    }
+  void moveDown() {
+    move(10);
+  }
+  
+  void move(int yMove) {
     int y = int.parse(player.attributes['y']) + yMove;
-    player.attributes['y'] = '$y';
-  });
-  
-  return player;
-}
-
-void reverseText(dom.MouseEvent event) {
-  var text = dom.document.querySelector("#sample_text_id").text;
-  var buffer = new StringBuffer();
-  for (int i = text.length - 1; i >= 0; i--) {
-    buffer.write(text[i]);
+    rect.attributes['y'] = '$y';
   }
-  dom.document.querySelector("#sample_text_id").text = buffer.toString();
-
-  
-  // BEGIN Dart2Js
-  print("");
-  print("printing js-helloStr in dart: ");
-  print(context['helloStr']);
-  print('');
-  context.callMethod('sayHello');
-  context.callMethod('myPrint', ['some args to be printed']);
-  // END Dart2Js
 }
