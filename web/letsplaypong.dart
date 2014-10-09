@@ -9,13 +9,10 @@ void main() {
   
   // INIT
   
-  //dom.Element pongCourt = dom.document.querySelector("#pongCourt");
-  
   dom.Element pongCourtE = dom.document.querySelector('.svg-canvas');
   ds.SvgSvgElement pongCourt = (pongCourtE as ds.SvgSvgElement);
   
-  PongCourt court = new PongCourt(pongCourt, 
-      new Player(119,115), new Player(119,115)); //w == 119, s == 115
+  PongCourt court = new PongCourt(pongCourt); //w == 119, s == 115
   
   ds.CircleElement ball = new ds.CircleElement()
     ..attributes['r'] = '24'
@@ -26,9 +23,7 @@ void main() {
     ..add(leftPlayer)
     ..add(rightPlayer)
     ..add(ball);*/
-  
-  // INIT END
-  
+
   
   // MAIN LOOP
 
@@ -38,16 +33,28 @@ void main() {
   
 }
 
+class Ball {
+  
+}
+
 class PongCourt {
   Player leftPlayer;
   Player rightPlayer;
-  //Ball ball;
+  Ball ball;
   ds.SvgSvgElement svgRoot;
   
-  PongCourt(ds.SvgSvgElement svgRoot, Player leftPlayer, Player rightPlayer) {
+  PongCourt(ds.SvgSvgElement svgRoot) {
+    
     this.svgRoot = svgRoot;
-    this.leftPlayer = leftPlayer;
-    this.rightPlayer = rightPlayer;
+    this.ball = new Ball();
+    this.leftPlayer = new Player(119,115);
+    this.rightPlayer = new Player(119,115);
+    
+    print("");
+    print(this.svgRoot.offsetWidth);
+    print(this.svgRoot.clientWidth);
+    print(this.rightPlayer.width);
+    
     this.rightPlayer.x = this.svgRoot.clientWidth - this.rightPlayer.width; //TODO hardcode
     svgRoot.children
        ..add(this.leftPlayer.rect)
