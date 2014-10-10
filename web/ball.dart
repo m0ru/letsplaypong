@@ -4,21 +4,22 @@ import 'dart:svg' as ds;
 class Ball {
   ds.CircleElement circle;
   
-  double vx = 0.001; //should be vector with random direction and that velocity
-  double vy = 0.001;
-  final double acceleration = -0.0000; //TODO currently negative to compensate for automatic speedup (wtf is it coming from?)
+  double vx = 0.1; //should be vector with random direction and that velocity
+  double vy = 0.1;
+  final double acceleration = 0.00000; //TODO currently negative to compensate for automatic speedup (wtf is it coming from?)
+  
+  double cxOld = 100.0;
+  double cyOld = 100.0;
   
   Ball() {
     circle = new ds.CircleElement()
       ..attributes['r'] = '24'
-      ..attributes['cx'] = '100'
-      ..attributes['cy'] = '100';
+      ..attributes['cx'] = '$cxOld'
+      ..attributes['cy'] = '$cyOld';
   }
-  
   double get cx {
     return double.parse(circle.attributes['cx']);
   }
-  
   void set cx(double cx) {
     circle.attributes['cx'] = '$cx';
   }
@@ -30,13 +31,5 @@ class Ball {
    }
   double get r {
     return double.parse(circle.attributes['r']);
-  }
-
-  void move(double deltaT) {
-    cx = cx + deltaT * vx;
-    vx += acceleration * deltaT;
-    
-    cy = cy + deltaT * vy;
-    vy += acceleration * deltaT;
   }
 }

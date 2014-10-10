@@ -4,9 +4,19 @@ import 'dart:math';
 
 class Player {
   ds.RectElement rect;
+  int upKey, downKey;
+  final double maxVelocity = 0.1;
   
   void set x(double x) {
     rect.attributes['x'] = '$x';
+  }
+  
+  double get y {
+     return double.parse(rect.attributes['y']);
+   }
+  
+  void set y(double y) {
+    rect.attributes['y'] = '$y';
   }
   
   double get x {
@@ -16,38 +26,17 @@ class Player {
   double get width {
     return double.parse(rect.attributes['width']);
   }
-  
-  double get y {
-    return double.parse(rect.attributes['y']);
-  }
-  
+
   double get height {
     return double.parse(rect.attributes['height']);
   }
   
-  Player(int upKey, int downKey) {
+  Player(this.upKey, this.downKey) {
     this.rect = new ds.RectElement()
         ..attributes['width'] = '20'
         ..attributes['height'] = '110'
         ..attributes['y'] = '10'
         ..attributes['x'] = '0';
-    
-    dom.window.onKeyPress.listen((dom.KeyboardEvent e) {
-        var yMove = 0;
-        if(e.keyCode == upKey) {
-          yMove = -20;
-        //} else if (e.keyCode == dom.KeyCode.S) {
-        } else if (e.keyCode == downKey) {
-          yMove = 20;
-        }
-        var y = double.parse(rect.attributes['y']) + yMove;
-        
-        //make sure the player stays within the court
-        y = max(y, 0);
-        y = min(y, 400 - height); //TODO dirty hard-coding
-        
-        rect.attributes['y'] = '$y';
-      });
   }
   
   /*void moveUp() {
