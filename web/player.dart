@@ -35,10 +35,10 @@ class Player {
     dom.window.onKeyPress.listen((dom.KeyboardEvent e) {
         var yMove = 0;
         if(e.keyCode == upKey) {
-          yMove = -10;
+          yMove = -20;
         //} else if (e.keyCode == dom.KeyCode.S) {
         } else if (e.keyCode == downKey) {
-          yMove = 10;
+          yMove = 20;
         }
         var y = double.parse(rect.attributes['y']) + yMove;
         

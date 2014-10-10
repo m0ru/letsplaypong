@@ -45,19 +45,18 @@ class Game extends Function {
   
   
   void call(double deltaT) {
+    var cxOld = ball.cx;
+    var cyOld = ball.cy;
+    
+    
+    
     ball.move(deltaT);
   
-    var player = rightPlayer;
     
-    var left = player.x;
-    var right = left + player.width;
-    var top = player.y;
-    var bottom = top + player.height;
     
     var cx = ball.cx;
     var cy = ball.cy;
     var r = ball.r;
-    
     
     if(cy - r < 0) {
       ball.vy = ball.vy.abs();
@@ -73,20 +72,34 @@ class Game extends Function {
     }
     
     
-    
-    if (left <= cx && cx <= right) {
-      if (cy < top && (cy + r) >= top) {
-        //touch top
-      } else if (cy > bottom && (cy - r) <= bottom) {
-        //touch bottom
+    for(var player in [leftPlayer, rightPlayer]) {
+      var left = player.x;
+      var right = left + player.width;
+      var top = player.y;
+      var bottom = top + player.height;
+      
+      //TODO ignore collision on top and bottom and focus on corners (these flip both directions)
+      if (left <= cx && cx <= right) {
+        if (cy < top && (cy + r) >= top) {
+          //touch top
+        } else if (cy > bottom && (cy - r) <= bottom) {
+          //touch bottom
+        }
+      }
+      
+      //TODO deal with speedup (reverse also if old position was on one and new on other side)
+      if (top <= cy && cy <= bottom) {
+        if(cxOld < left && (cx + r) >= left) { //touch from left
+          ball.vx = -ball.vx.abs();
+          print("hit from left");
+        } else if(cxOld > right && (cx - r) <= right) { //touch from right
+          ball.vx = ball.vx.abs();
+          print("hit from right");
+        }
       }
     }
     
-    if (top <= cy && cy <= bottom) {
-      
-    }
-    
-    print(bottom);
+    //print(bottom);
     
     
     

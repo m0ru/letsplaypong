@@ -6,7 +6,7 @@ class Ball {
   
   double vx = 0.001; //should be vector with random direction and that velocity
   double vy = 0.001;
-  final double acceleration = 0.0000;
+  final double acceleration = -0.0000; //TODO currently negative to compensate for automatic speedup (wtf is it coming from?)
   
   Ball() {
     circle = new ds.CircleElement()
@@ -34,9 +34,9 @@ class Ball {
 
   void move(double deltaT) {
     cx = cx + deltaT * vx;
-    //vx += acceleration * deltaT;
+    vx += acceleration * deltaT;
     
     cy = cy + deltaT * vy;
-    //vy += acceleration * deltaT;
+    vy += acceleration * deltaT;
   }
 }
