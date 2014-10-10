@@ -39,15 +39,7 @@ class Game extends Function {
   double lastFrameTime = 0.0;
   
   Game(ds.SvgSvgElement this.svgRoot) //automatically assigns svgRoot
-  { 
-    //this.svgRoot.attributes['viewBox'] = '0 0 600 400';
-    print("");
-    print(svgRoot.offsetWidth);
-    print(svgRoot.clientWidth);
-    print(rightPlayer.width);
-    
-    print("W: " + KeyCode.W.toString());
-    
+  {       
     rightPlayer.x = width - rightPlayer.width; //TODO hardcode
     svgRoot.children
        ..add(leftPlayer.rect)
