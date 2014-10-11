@@ -8,8 +8,10 @@ import 'dart:math';
 import 'player.dart';
 import 'ball.dart';
 import 'keyboard.dart';
+import 'soundeffect.dart';
 
 void main() {
+  SoundEffect test = new SoundEffect();
   Element svgRootE = document.querySelector('.svg-canvas');
   var svgRoot = (svgRootE as ds.SvgSvgElement);
   svgRoot.focus();
@@ -20,8 +22,6 @@ void main() {
 }
 
 //TODO replace key listener with active polling per frame to get a more fluid animation
-//TODO global speed variable that accelerates
-//TODO split into model and controller classes (e.g. Game -> Game & PongCourt)
 //TODO speed should decrease less later on and even stop increasing after a while
 //     run game once to a very difficult level and print speeds till there
 //     and use that speed as asymptotic maximum (if there is one). Using log
@@ -79,7 +79,8 @@ class Game extends Function {
       collisionWithPlayer(player);
     }
     
-    speed += 0.001;
+    //speed = 1.0 + log(timeSinceStart) / 20;
+    speed = 1.0 + sqrt(timeSinceStart) / 200;
     
     lastFrameTime = timeSinceStart;
     

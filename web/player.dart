@@ -5,7 +5,7 @@ import 'dart:math';
 class Player {
   ds.RectElement rect;
   int upKey, downKey;
-  final double maxVelocity = 0.1;
+  final double maxVelocity = 0.13;
   
   void set x(double x) {
     rect.attributes['x'] = '$x';

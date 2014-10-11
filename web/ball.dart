@@ -4,8 +4,8 @@ import 'dart:svg' as ds;
 class Ball {
   ds.CircleElement circle;
   
-  double vx = 0.1; //should be vector with random direction and that velocity
-  double vy = 0.1;
+  double vx = 0.2; //should be vector with random direction and that velocity
+  double vy = 0.2;
    
   double cxOld = 100.0;
   double cyOld = 100.0;
