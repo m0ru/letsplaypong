@@ -6,8 +6,7 @@ class Ball {
   
   double vx = 0.1; //should be vector with random direction and that velocity
   double vy = 0.1;
-  final double acceleration = 0.00000; //TODO currently negative to compensate for automatic speedup (wtf is it coming from?)
-  
+   
   double cxOld = 100.0;
   double cyOld = 100.0;
   

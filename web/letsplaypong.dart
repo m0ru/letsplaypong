@@ -49,9 +49,9 @@ class Game extends Function {
     for(var player in [leftPlayer, rightPlayer]) {
        window.onKeyPress.listen((KeyboardEvent e) {
          var yMove = 0;
+         
          if(e.keyCode == player.upKey) {
            yMove = -20;
-         //} else if (e.keyCode == KeyCode.S) {
          } else if (e.keyCode == player.downKey) {
            yMove = 20;
          }
@@ -69,17 +69,13 @@ class Game extends Function {
   
   void call(double timeSinceStart) {
     ball.cyOld = ball.cy;
-    
     var deltaT = timeSinceStart - lastFrameTime;
     
     moveBall(deltaT);
- 
     collisionWithWalls();
     
     for(var player in [leftPlayer, rightPlayer]) {
-      
       playerMove(player, deltaT);
-            
       collisionWithPlayer(player);
     }
     
@@ -87,6 +83,7 @@ class Game extends Function {
     
     lastFrameTime = timeSinceStart;
     
+    //reqeue animation
     if(running)
       window.animationFrame.then(this); // TODO only runs if tab is visible!
   }
@@ -108,18 +105,8 @@ class Game extends Function {
   }
   
   void moveBall(deltaT) {
-    
- 
-    //TODO replace acceleration with global speed (and accelerate that)
-    var dv = ball.acceleration * deltaT; // delta velocity / velocity change
-    
     ball.cx = ball.cx + deltaT * ball.vx * speed;
-    ball.vx = ball.vx < 0 ? ball.vx - dv : ball.vx + dv;
-
     ball.cy = ball.cy + deltaT * ball.vy * speed;
-    ball.vy = ball.vy < 0 ? ball.vy - dv : ball.vy + dv;
-    
-    
   }
   
   void collisionWithWalls() {
